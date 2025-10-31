@@ -1,2 +1,3 @@
 # talevember
-[talevember.org](talevember.org)
+
+https://www.talevember.org/
