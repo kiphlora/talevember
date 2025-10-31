@@ -4,91 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Talevember</title>
-  <style>
-    /* --- Base Reset & Typography --- */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Inter', system-ui, sans-serif;
-      background-color: #f9fafb;
-      color: #1a1a1a;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* --- Header --- */
-    header {
-      background: #2563eb;
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    /* --- Main Content --- */
-    main {
-      flex: 1;
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    h1, h2, h3 {
-      color: #111827;
-    }
-
-    p {
-      margin-bottom: 1.2rem;
-    }
-
-    /* --- Buttons --- */
-    .button {
-      display: inline-block;
-      background: #2563eb;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: background 0.2s ease;
-    }
-    .button:hover {
-      background: #1d4ed8;
-    }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #f3f4f6;
-      font-size: 0.9rem;
-      color: #6b7280;
-      border-top: 1px solid #e5e7eb;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
-  <header>
-    🌿 Talevember
-  </header>
 
-  <main>
-    <h1>Welcome!</h1>
-    <p>Talevember is an alternative to, or maybe even a method to accomplish, NaNoWriMo.</p>
-    <p>It's inspired by Inktober and involves writing (generally short) fiction or essays based on prompts each day.</p>
-    <p>For 2025, the aim is to train our imaginations to co-create our futures.</p>
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1 id="talevember-brand">Tale<span class="highlight">vember</span></h1>
+      <p class="subtitle">30 days of daily writing prompts for short story creators</p>
+      <p class="subtitle2">An alternative to NaNoWriMo focused on the art of short essays and fiction.</p>
+      <a href="#calendar-section" class="cta">View November 2025 Prompts</a>
+    </div>
+  </section>
 
-    <a href="#" class="button">Button</a>
-  </main>
+  <!-- ================= CALENDAR SECTION ================= -->
+  <section id="calendar-section" class="calendar-section">
+    <div class="calendar-header">
+      <h2 id="month-year"></h2>
+    </div>
 
+    <!-- Day-of-week headers -->
+    <div class="day-labels">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+      <div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+
+    <!-- Calendar grid -->
+    <div class="calendar" id="calendar"></div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
   <footer>
-    © 2025 BAM. Built with ❤️/☕ and HTML.
+    <p>Created for dreamers & storytellers everywhere.</p>
+    <p>&copy; 2025 BAM. Built with ❤️ and way too much ☕.</p>
   </footer>
+
+  <script src="src/main.js"></script>
 </body>
 </html>

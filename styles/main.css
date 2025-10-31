@@ -1,0 +1,228 @@
+/* ---------- BASE ---------- */
+body {
+  font-family: 'Inter', sans-serif;
+  color: #3b2e2e;
+  background: #fffaf5;
+  line-height: 1.6;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- HERO ---------- */
+#talevember-brand {
+  font-size: 5.5rem;
+}
+
+.hero {
+  position: relative;
+  height: 90vh;
+  background: linear-gradient(rgba(102, 15, 0, 0.7), rgba(134, 81, 1, 0.7)),
+    url('../img/autumn-typewriter-ai-hero-image.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(40, 20, 0, 0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.highlight {
+  color: #e48508;
+}
+
+.cta {
+  background-color: #e48508;
+  color: #fffaf5;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.cta:hover {
+  opacity: 0.9;
+}
+
+/* ---------- CALENDAR ---------- */
+.calendar-section {
+  max-width: 900px;
+  width: 100%;
+  margin: 4rem auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#month-year {
+  font-size: 1.3rem;
+  color: #8a3a00;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.subtitle {
+  color: #fff3eaaa;
+  margin-top: -5rem;
+  margin-bottom: 3rem;
+  font-size: 1.3rem;
+
+}
+
+.subtitle2 {
+  color: #fff3ea;
+  margin-bottom: 3rem;
+  font-size: 1.5rem;
+}
+
+/* ---------- THEME TOGGLE ---------- */
+.theme-toggle {
+  border: none;
+  background: #fff3ea;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.35rem 0.6rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+.theme-toggle:hover {
+  background: #ffe9d6;
+}
+
+/* ---------- DAY LABELS ---------- */
+.day-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 600;
+  color: #7a4c1e;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- CALENDAR GRID ---------- */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+/* ---------- DAY BOXES ---------- */
+.day {
+  background: #ffffff;
+  border: 1px solid #e6caa2;
+  border-radius: 12px;
+  padding: 0.6rem;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.day:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border-color: #d49b59;
+}
+
+.day.empty {
+  background: transparent;
+  box-shadow: none;
+  cursor: default;
+}
+
+.day-number {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  background: #f9ece1;
+  color: #4a2500;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.day-number.today {
+  background: #b6410b;
+  color: #ffffff;
+}
+
+.prompt-title {
+  font-size: 0.95rem;
+  color: #3b1c05;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.day.completed {
+  border: 2px solid #b6410b;
+  background: #fff5ee;
+}
+
+/* ---------- CHECKBOX ---------- */
+.day-checkbox {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  border: 2px dashed #d8bfa3;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+}
+
+.day-checkbox.checked {
+  background-color: #b6410b;
+  border: 2px solid #b6410b;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M1 5l3 3 7-7"/></svg>');
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background: #fff3ea;
+  text-align: center;
+  padding: 1rem;
+  color: #6b3e15;
+  font-size: 0.9rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+  .calendar {
+    gap: 5px;
+  }
+  .day {
+    min-height: 70px;
+  }
+}
