@@ -1,6 +1,6 @@
 /* ---------- BASE ---------- */
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Jakarta Sans", sans-serif;
   color: #3b2e2e;
   background: #fffaf5;
   line-height: 1.6;
@@ -135,7 +135,7 @@ html {
   border: 1px solid #e6caa2;
   border-radius: 12px;
   padding: 0.6rem;
-  min-height: 80px;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -161,6 +161,7 @@ html {
 
 .day-number {
   display: inline-block;
+  font-size: 0.8rem;
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -170,6 +171,7 @@ html {
   color: #4a2500;
   margin-bottom: 0.3rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .day-number.today {
@@ -178,10 +180,19 @@ html {
 }
 
 .prompt-title {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #3b1c05;
-  margin-bottom: 0.25rem;
-  font-weight: 500;
+  font-weight: 600;
+  margin: 0;
+
+  /* Takes up remaining vertical space in card */
+  flex-grow: 1;
+
+  /* Centers text vertically and horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .day.completed {
