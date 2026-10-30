@@ -1,6 +1,6 @@
 /* ---------- BASE ---------- */
 body {
-  font-family: "Jakarta Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   color: #3b2e2e;
   background: #fffaf5;
   line-height: 1.6;
@@ -135,7 +135,7 @@ html {
   border: 1px solid #e6caa2;
   border-radius: 12px;
   padding: 0.6rem;
-  min-height: 100px;
+  min-height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -161,7 +161,7 @@ html {
 
 .day-number {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -181,7 +181,7 @@ html {
 
 .prompt-title {
   font-size: 0.85rem;
-  color: #3b1c05;
+  color: #70370b;
   font-weight: 600;
   margin: 0;
 
