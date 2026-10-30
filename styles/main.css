@@ -1,6 +1,6 @@
 /* ---------- BASE ---------- */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #3b2e2e;
   background: #fffaf5;
   line-height: 1.6;
@@ -19,8 +19,9 @@ html {
 .hero {
   position: relative;
   height: 90vh;
-  background: linear-gradient(rgba(102, 15, 0, 0.7), rgba(134, 81, 1, 0.7)),
-    url('../img/autumn-typewriter-ai-hero-image.jpg') center/cover no-repeat;
+  background:
+    linear-gradient(rgba(102, 15, 0, 0.7), rgba(134, 81, 1, 0.7)),
+    url("../img/autumn-typewriter-ai-hero-image.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,7 +89,6 @@ html {
   margin-top: -5rem;
   margin-bottom: 3rem;
   font-size: 1.3rem;
-
 }
 
 .subtitle2 {
@@ -141,7 +141,10 @@ html {
   justify-content: flex-start;
   position: relative;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .day:hover {
@@ -182,12 +185,54 @@ html {
 }
 
 .day.completed {
-  border: 2px solid #b6410b;
+  border: 1px solid #b6410b;
   background: #fff5ee;
 }
 
 /* ---------- CHECKBOX ---------- */
 .day-checkbox {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d8bfa3;
+  border-radius: 50%;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Subtle hover pop */
+.day-checkbox:hover {
+  border-color: #b6410b;
+  transform: scale(1.08);
+}
+
+/* Checked state background */
+.day-checkbox.checked {
+  background-color: #b6410b;
+  border-color: #b6410b;
+  box-shadow: 0 2px 5px rgba(182, 65, 11, 0.3);
+}
+
+/* Pure CSS Checkmark Icon */
+.day-checkbox.checked::after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 7px;
+  border: solid #ffffff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  margin-top: -2px; /* Centers the checkmark baseline */
+}
+/* .day-checkbox {
   position: absolute;
   top: 6px;
   right: 8px;
@@ -206,6 +251,197 @@ html {
   background-color: #b6410b;
   border: 2px solid #b6410b;
   background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M1 5l3 3 7-7"/></svg>');
+} */
+
+/* ---------- MODAL ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(45, 20, 5, 0.45);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+/* Remove display:none when modal relies on visibility/opacity transitions */
+.modal-backdrop.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: #fffaf5;
+  border: 1px solid #e6caa2;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem 2.2rem;
+  position: relative;
+  box-shadow: 0 12px 32px rgba(90, 45, 10, 0.15);
+  text-align: left;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.visible .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: #f7ebe0;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: #7a4c1e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: #b6410b;
+  color: #ffffff;
+}
+
+/* Modal Navigation Bar */
+.modal-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  padding-right: 2.5rem; /* Space for close button */
+}
+
+.modal-nav-btn {
+  background: transparent;
+  border: 1px solid #e6caa2;
+  color: #8a3a00;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-nav-btn:hover:not(:disabled) {
+  background: #f5e4d2;
+  border-color: #d49b59;
+  color: #b6410b;
+}
+
+.modal-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: #ebd7bf;
+}
+
+.modal-day-badge {
+  display: inline-block;
+  background: #f5e4d2;
+  color: #8a3a00;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+.modal-title {
+  margin: 0 0 0.2rem 0;
+  color: #3b1c05;
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.modal-subtitle {
+  margin: 0 0 1.2rem 0;
+  color: #b6410b;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.modal-body {
+  color: #4a2500;
+  font-size: 1rem;
+  line-height: 1.65;
+  border-top: 1px solid #ebd7bf;
+  padding-top: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Modal Footer & Complete Button */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-complete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 2px solid #d8bfa3;
+  color: #7a4c1e;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-complete-btn:hover {
+  border-color: #b6410b;
+  color: #b6410b;
+  background: #fff5ee;
+}
+
+.modal-complete-btn.is-completed {
+  background: #b6410b;
+  border-color: #b6410b;
+  color: #ffffff;
+}
+
+.modal-complete-btn.is-completed:hover {
+  background: #963407;
+  border-color: #963407;
+}
+
+.modal-complete-btn .btn-icon::before {
+  content: "○";
+  font-size: 1rem;
+}
+
+.modal-complete-btn.is-completed .btn-icon::before {
+  content: "✓";
 }
 
 /* ---------- FOOTER ---------- */

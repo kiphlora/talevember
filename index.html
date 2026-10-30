@@ -14,8 +14,8 @@
     <div class="hero-content">
       <h1 id="talevember-brand">Tale<span class="highlight">vember</span></h1>
       <p class="subtitle">30 days of daily writing prompts for creators</p>
-      <p class="subtitle2">An alternative to NaNoWriMo focused on the art of short essays and fiction.</p>
-      <a href="#calendar-section" class="cta">View November 2025 Prompts</a>
+      <p class="subtitle2"></p>
+      <a href="#calendar-section" class="cta">View November 2026 Prompts</a>
     </div>
   </section>
 
@@ -35,10 +35,38 @@
     <div class="calendar" id="calendar"></div>
   </section>
 
+  <!-- ================= MODAL POPUP ================= -->
+  <div id="prompt-modal" class="modal-backdrop hidden" aria-hidden="true" role="dialog">
+    <div class="modal-content">
+      <button id="modal-close" class="modal-close" aria-label="Close modal">&times;</button>
+
+      <div class="modal-header">
+        <div class="modal-nav-bar">
+          <button id="modal-prev-btn" class="modal-nav-btn" aria-label="Previous day">&larr; Prev</button>
+          <span id="modal-day-badge" class="modal-day-badge">Day 1</span>
+          <button id="modal-next-btn" class="modal-nav-btn" aria-label="Next day">Next &rarr;</button>
+        </div>
+        <h2 id="modal-title" class="modal-title">Prompt Title</h2>
+        <p id="modal-subtitle" class="modal-subtitle"></p>
+      </div>
+
+      <div class="modal-body">
+        <p id="modal-description">Prompt description goes here...</p>
+      </div>
+
+      <div class="modal-footer">
+        <button id="modal-complete-btn" class="modal-complete-btn">
+          <span class="btn-icon"></span>
+          <span class="btn-text">Mark as Completed</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= FOOTER ================= -->
   <footer>
-    <p>Created for dreamers & storytellers everywhere.</p>
-    <p>&copy; 2025 BAM. Built with ❤️, ChatGPT, and way too much ☕.</p>
+    <p>Created for storytellers of all kinds everywhere.</p>
+    <p>&copy; 2025-Present BAM.</p>
   </footer>
 
   <script src="src/main.js"></script>
