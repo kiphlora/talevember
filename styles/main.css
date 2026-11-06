@@ -1,4 +1,10 @@
 /* ---------- BASE ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Inter", sans-serif;
   color: #3b2e2e;
@@ -67,6 +73,7 @@ html {
   margin: 4rem auto;
   padding: 0 1rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .calendar-header {
@@ -219,20 +226,17 @@ html {
   box-sizing: border-box;
 }
 
-/* Subtle hover pop */
 .day-checkbox:hover {
   border-color: #b6410b;
   transform: scale(1.08);
 }
 
-/* Checked state background */
 .day-checkbox.checked {
   background-color: #b6410b;
   border-color: #b6410b;
   box-shadow: 0 2px 5px rgba(182, 65, 11, 0.3);
 }
 
-/* Pure CSS Checkmark Icon */
 .day-checkbox.checked::after {
   content: "";
   display: block;
@@ -241,28 +245,8 @@ html {
   border: solid #ffffff;
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
-  margin-top: -2px; /* Centers the checkmark baseline */
+  margin-top: -2px;
 }
-/* .day-checkbox {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  width: 18px;
-  height: 18px;
-  border: 2px dashed #d8bfa3;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10px;
-}
-
-.day-checkbox.checked {
-  background-color: #b6410b;
-  border: 2px solid #b6410b;
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M1 5l3 3 7-7"/></svg>');
-} */
 
 /* ---------- MODAL ---------- */
 .modal-backdrop {
@@ -283,7 +267,6 @@ html {
     visibility 0.25s ease;
 }
 
-/* Remove display:none when modal relies on visibility/opacity transitions */
 .modal-backdrop.hidden {
   opacity: 0;
   visibility: hidden;
@@ -300,14 +283,15 @@ html {
   background: #fffaf5;
   border: 1px solid #e6caa2;
   border-radius: 20px;
-  width: 100%;
-  max-width: 500px;
+  width: min(500px, 90vw);
+  max-width: 100%;
   padding: 2rem 2.2rem;
   position: relative;
   box-shadow: 0 12px 32px rgba(90, 45, 10, 0.15);
   text-align: left;
   transform: scale(0.95) translateY(10px);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .modal-backdrop.visible .modal-content {
@@ -339,13 +323,20 @@ html {
   color: #ffffff;
 }
 
-/* Modal Navigation Bar */
+/* Modal Header & Navigation Bar */
+.modal-header {
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .modal-nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.8rem;
-  padding-right: 2.5rem; /* Space for close button */
+  padding-right: 2.5rem;
 }
 
 .modal-nav-btn {
@@ -406,6 +397,53 @@ html {
   border-top: 1px solid #ebd7bf;
   padding-top: 1.2rem;
   margin-bottom: 1.5rem;
+  height: 220px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- RICH CONTENT STYLES INSIDE MODAL ---------- */
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 1rem 0;
+  border: 1px solid #ebd7bf;
+}
+
+.modal-body iframe {
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(60, 20, 0, 0.1);
+}
+
+.modal-body h3,
+.modal-body h4 {
+  color: #3b1c05;
+  margin: 1.2rem 0 0.4rem 0;
+  font-weight: 600;
+}
+
+.modal-body ul,
+.modal-body ol {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.modal-body li {
+  margin-bottom: 0.3rem;
+}
+
+.modal-body blockquote {
+  border-left: 3px solid #b6410b;
+  margin: 1rem 0;
+  padding: 0.4rem 0 0.4rem 1rem;
+  background: #f7ebe0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #6b3e15;
 }
 
 /* Modal Footer & Complete Button */
@@ -464,12 +502,139 @@ footer {
   font-size: 0.9rem;
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ==========================================================================
+   MOBILE & TOUCH OPTIMIZATIONS (Max-Width: 600px)
+   ========================================================================== */
 @media (max-width: 600px) {
-  .calendar {
-    gap: 5px;
+  /* Hero Adjustments */
+  .hero {
+    height: 75vh;
   }
+
+  #talevember-brand {
+    font-size: 3.2rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-top: -3rem;
+    margin-bottom: 2rem;
+  }
+
+  .calendar-section {
+    margin: 2rem auto;
+    padding: 0 0.85rem;
+  }
+
+  /* Hide Sun-Sat Headers on Mobile List */
+  .day-labels {
+    display: none;
+  }
+
+  /* 1-Column Feed */
+  .calendar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Hide Empty Grid Cells on Mobile */
+  .day.empty {
+    display: none;
+  }
+
+  /* Mobile List Item Style */
   .day {
-    min-height: 70px;
+    min-height: auto;
+    padding: 0.9rem 1rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  .day:hover {
+    transform: none;
+  }
+
+  .day-number {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  .prompt-title {
+    font-size: 1rem;
+    text-align: left;
+    justify-content: flex-start;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .day-checkbox {
+    position: static;
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Mobile Bottom Sheet */
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-height: 85vh;
+    border-radius: 24px 24px 0 0;
+    padding: 1.25rem 1.25rem 1.75rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    border-bottom: none;
+    box-shadow: 0 -8px 30px rgba(45, 20, 5, 0.2);
+    box-sizing: border-box;
+  }
+
+  /* Drag handle indicator for bottom sheet */
+  .modal-content::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: #e6caa2;
+    border-radius: 999px;
+    margin: 0 auto 1rem auto;
+  }
+
+  .modal-backdrop.visible .modal-content {
+    transform: translateY(0);
+  }
+
+  .modal-close {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .modal-body {
+    height: 55vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-grow: 0;
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-footer {
+    justify-content: stretch;
+  }
+
+  .modal-complete-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
   }
 }
