@@ -90,11 +90,20 @@ function buildCalendar() {
 }
 
 // ------------------------------
+// Helper: Wrap Day Numbers (1 to 30 Cycle)
+// ------------------------------
+function getNextDay(day) {
+  return day >= daysInMonth ? 1 : day + 1;
+}
+
+function getPrevDay(day) {
+  return day <= 1 ? daysInMonth : day - 1;
+}
+
+// ------------------------------
 // Modal Controller
 // ------------------------------
 function openModal(dayNumber) {
-  if (dayNumber < 1 || dayNumber > daysInMonth) return;
-  
   currentActiveDay = dayNumber;
   const promptData = prompts[dayNumber - 1] || {};
 
@@ -108,12 +117,18 @@ function openModal(dayNumber) {
     modalSubtitle.style.display = 'none';
   }
 
-  modalDescription.textContent = promptData.description || 
-    `Write a story, game scenario, poem, or vignette inspired by "${promptData.title}". Let the prompt guide your creative exploration for today!`;
+  // Markdown rendering with fallback
+  if (promptData.description) {
+    modalDescription.innerHTML = typeof marked !== 'undefined' 
+      ? marked.parse(promptData.description) 
+      : promptData.description;
+  } else {
+    modalDescription.textContent = `Write a story, game scenario, poem, or vignette inspired by "${promptData.title}". Let the prompt guide your creative exploration for today!`;
+  }
 
-  // Update navigation buttons
-  modalPrevBtn.disabled = (dayNumber <= 1);
-  modalNextBtn.disabled = (dayNumber >= daysInMonth);
+  // Prev / Next buttons stay enabled for infinite looping
+  modalPrevBtn.disabled = false;
+  modalNextBtn.disabled = false;
 
   // Sync completion button state
   updateModalButtonState(dayNumber);
@@ -147,6 +162,9 @@ function updateModalButtonState(day) {
   }
 }
 
+// ------------------------------
+// Modal Event Listeners & Gestures
+// ------------------------------
 function setupModalListeners() {
   // Close Button Click
   modalCloseBtn.addEventListener('click', (e) => {
@@ -154,30 +172,77 @@ function setupModalListeners() {
     closeModal();
   });
 
-  // Prev / Next Navigation Clicks
+  // Prev / Next Navigation Clicks with Looping
   modalPrevBtn.addEventListener('click', () => {
-    if (currentActiveDay > 1) openModal(currentActiveDay - 1);
+    openModal(getPrevDay(currentActiveDay));
   });
 
   modalNextBtn.addEventListener('click', () => {
-    if (currentActiveDay < daysInMonth) openModal(currentActiveDay + 1);
+    openModal(getNextDay(currentActiveDay));
   });
 
-  // Backdrop click (closes when clicking background outside content card)
+  // Backdrop click
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
   });
 
-  // Keyboard Navigation: Escape to close, Left/Right arrows to step through prompts
+  // -------------------------------------------------------------
+  // TOUCH SWIPE GESTURES (LEFT, RIGHT, DOWN)
+  // -------------------------------------------------------------
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchEndX = 0;
+  let touchEndY = 0;
+
+  modal.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  modal.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    if (!currentActiveDay) return;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+
+    const minSwipeDistance = 50;
+
+    // 1. SWIPE DOWN (Dismiss Modal)
+    if (deltaY > minSwipeDistance && absY > absX) {
+      closeModal();
+      return;
+    }
+
+    // 2. HORIZONTAL SWIPES (Next / Prev with Looping)
+    if (absX > minSwipeDistance && absX > absY) {
+      if (deltaX < 0) {
+        // Swiped Left -> Move to Next (Day 30 wraps to Day 1)
+        openModal(getNextDay(currentActiveDay));
+      } else {
+        // Swiped Right -> Move to Prev (Day 1 wraps to Day 30)
+        openModal(getPrevDay(currentActiveDay));
+      }
+    }
+  }
+
+  // Keyboard Navigation: Escape to close, Left/Right arrows to cycle
   document.addEventListener('keydown', (e) => {
     if (modal.classList.contains('hidden') || !modal.classList.contains('visible')) return;
 
     if (e.key === 'Escape') {
       closeModal();
-    } else if (e.key === 'ArrowLeft' && currentActiveDay > 1) {
-      openModal(currentActiveDay - 1);
-    } else if (e.key === 'ArrowRight' && currentActiveDay < daysInMonth) {
-      openModal(currentActiveDay + 1);
+    } else if (e.key === 'ArrowLeft') {
+      openModal(getPrevDay(currentActiveDay));
+    } else if (e.key === 'ArrowRight') {
+      openModal(getNextDay(currentActiveDay));
     }
   });
 
